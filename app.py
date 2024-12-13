@@ -6,10 +6,10 @@ import pickle
 
 # Load models
 cnn_model = load_model('cnn_model.h5')
-with open('logistic_regression_model.pkl', 'rb') as f:
-    logistic_model = pickle.load(f)
-with open('decision_tree_model.pkl', 'rb') as f:
-    decision_tree_model = pickle.load(f)
+# with open('logistic_regression_model.pkl', 'rb') as f:
+#     logistic_model = pickle.load(f)
+# with open('decision_tree_model.pkl', 'rb') as f:
+#     decision_tree_model = pickle.load(f)
 
 # Load class indices for CNN
 with open('class_indices.pkl', 'rb') as f:
@@ -29,7 +29,7 @@ st.write("Upload an image and choose a model to predict the ASL character.")
 # Dropdown to select model
 model_choice = st.selectbox(
     "Select a model for prediction:",
-    ["CNN (MobileNetV2)", "Logistic Regression", "Decision Tree"]
+    ["CNN (MobileNetV2)"]
 )
 
 # Upload image
@@ -92,9 +92,9 @@ if uploaded_file is not None:
         # Use the loaded class_indices
         if class_indices is None:
             raise ValueError("Class indices are not loaded. Make sure 'class_indices.pkl' exists.")
-    else:
-        model = logistic_model if model_choice == "Logistic Regression" else decision_tree_model
-        class_indices = None  # Not needed for non-CNN models
+    # else:
+    #     model = logistic_model if model_choice == "Logistic Regression" else decision_tree_model
+    #     class_indices = None  # Not needed for non-CNN models
 
     # Predict the label and top 5 probabilities
     predicted_label, top_5_predictions = predict_outside_image_streamlit(
